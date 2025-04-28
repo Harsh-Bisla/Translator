@@ -46,15 +46,18 @@ function LanguageContext({ children }) {
     setListenBtn(true);
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
+  
     if (!SpeechRecognition) {
       console.log("Speech Recognition API is not supported in this browser.");
       return;
     }
+  
     const recognition = new SpeechRecognition();
     recognition.lang = "hi-IN";
     let accumulatedText = text1;
+  
     recognition.start();
-
+  
     // When speech is recognized
     recognition.onresult = function (event) {
       const transcript = event.results[event.resultIndex][0].transcript;
@@ -67,17 +70,30 @@ function LanguageContext({ children }) {
         setText2,
       });
     };
-
+  
     // Handle errors
     recognition.onerror = function (event) {
       warnMsg(event.error);
     };
-
+  
+    // Ensure it stops after result and doesn't continue
     recognition.onend = function () {
       setListenBtn(false);
       console.log("Speech recognition service has stopped.");
     };
+  
+    // Make sure recognition stops when user manually stops or after a result
+    recognition.onspeechend = function () {
+      recognition.stop(); // Explicitly stop when speech ends
+      console.log("Speech ended and recognition stopped.");
+    };
+  
+    // Explicitly start the recognition again if necessary (in case it's not starting again after onend)
+    recognition.onstart = function () {
+      console.log("Speech recognition has started.");
+    };
   }
+  
 
   // clear all text
   const clearText = ({ setText1, setText2 }) => {
