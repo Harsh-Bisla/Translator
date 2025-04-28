@@ -1,0 +1,162 @@
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #212429;
+  transition: all 0.2s linear;
+  position: relative;
+}
+.navbar-light {
+  background-color: white;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  & h4 {
+    color: #7431fa;
+    font-size: 22px;
+    font-weight: 400;
+  }
+}
+.options {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  & a {
+    color: white;
+    font-size: 14px;
+    text-decoration: none;
+  }
+}
+.logo-box-light {
+  & a {
+    color: black;
+  }
+}
+.active {
+  color: #7431fa !important;
+}
+.serach-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+
+  & svg {
+    color: white;
+    font-size: 22px;
+  }
+
+  & input {
+    background-color: black;
+    outline: none;
+    border: 1px solid #7431fa;
+    border-radius: 6px;
+    padding: 8px 16px;
+    transition: all 0.2s linear;
+    color: white;
+    &:focus {
+      outline: 2px solid #5f24d4;
+      transition: all 0.2s linear;
+    }
+  }
+
+  & button {
+    background-color: #7431fa;
+    border-radius: 5px;
+    outline: none;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      background-color: #5a1ad9;
+      transition: all 0.2s linear;
+    }
+  }
+}
+
+.dot-box {
+  width: 50px;
+  height: 22px;
+  border-radius: 20px;
+  background-color: #0f0f1f;
+  display: flex;
+  align-items: center;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s linear;
+}
+.dot {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  background-color: white;
+  position: absolute;
+  display: flex;
+  transition: all 0.2s linear;
+  align-items: center;
+  justify-content: center;
+  & svg {
+    color: black;
+  }
+}
+.close-btn {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  display: none;
+}
+.menu-btn {
+  color: #5a1ad9;
+  font-size: 24px;
+  display: none;
+}
+
+.dot-box-light {
+  background-color: rgba(128, 128, 128, 0.279);
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+.dot-light {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+@media (max-width: 750px) {
+  .navbar {
+    padding: 10px;
+  }
+  .options {
+    flex-direction: column;
+    position: fixed;
+    background-color: #212429;
+    width: 200px;
+    right: 100%;
+    top: 0;
+    height: 100vh;
+    justify-content: start;
+    align-items: start;
+    padding: 40px;
+    transition: all 0.5s;
+    z-index: 2;
+  }
+.serach-box{
+  & input, button{
+    display: none;
+  }
+}
+  .menu-btn {
+    display: block;
+  }
+  .close-btn{
+    display: block;
+  }
+}
