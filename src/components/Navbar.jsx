@@ -12,15 +12,11 @@ const Navbar = () => {
   const [sidebar, setSidebar] = useState(false);
 
   const changeMode = () => {
-    const prevMode = localStorage.getItem("mode");
-    if (prevMode === "false") {
-      localStorage.setItem("mode", true);
-    } else if (prevMode === "true") {
-      localStorage.setItem("mode", false);
-    }
     setMode(mode ? false : true);
+    localStorage.setItem("mode", mode ? false : true);
   };
 
+console.log(mode)
   const openSidear = () => {
     setSidebar(true);
   };

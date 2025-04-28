@@ -6,7 +6,7 @@ export const store = createContext();
 function LanguageContext({ children }) {
   const succMsg = (msg) => toast.success(msg);
   const warnMsg = (msg) => toast.warn(msg);
-  const [mode, setMode] = useState(null);
+  const [mode, setMode] = useState(localStorage.getItem("mode")=== "true" || false);
   const [speakBtn, setSpeakBtn] = useState(true);
   const [textCopied, setTextCopied] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
@@ -151,7 +151,9 @@ function LanguageContext({ children }) {
 
   useEffect(() => {
     const Mode = localStorage.getItem("mode") === "true";
-    setMode(Mode);
+    if (Mode) {
+      setMode(Mode);
+    }
   }, []);
 
   return (
