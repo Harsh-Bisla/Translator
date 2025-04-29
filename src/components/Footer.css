@@ -1,0 +1,29 @@
+.footer {
+  background-color: #212429;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
+
+  & p {
+    font-size: 14px;
+  }
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+
+  & svg {
+    font-size: 20px;
+    cursor: pointer;
+    transition: all 0.2s linear;
+    &:hover {
+      color: #5a1ad9;
+      box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+      transition: all 0.2s linear;
+    }
+  }
+}

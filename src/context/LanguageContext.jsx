@@ -6,7 +6,9 @@ export const store = createContext();
 function LanguageContext({ children }) {
   const succMsg = (msg) => toast.success(msg);
   const warnMsg = (msg) => toast.warn(msg);
-  const [mode, setMode] = useState(localStorage.getItem("mode")=== "true" || false);
+  const [mode, setMode] = useState(
+    localStorage.getItem("mode") === "true" || false
+  );
   const [speakBtn, setSpeakBtn] = useState(true);
   const [textCopied, setTextCopied] = useState(false);
   const [listenBtn, setListenBtn] = useState(false);
@@ -41,59 +43,69 @@ function LanguageContext({ children }) {
     language2,
     setText2,
     text1,
+    langCode,
   }) {
-    succMsg("Listening");
-    setListenBtn(true);
     const SpeechRecognition =
       window.SpeechRecognition || window.webkitSpeechRecognition;
-  
+
     if (!SpeechRecognition) {
-      console.log("Speech Recognition API is not supported in this browser.");
+      warnMsg("Speech recognition is not supported in this browser.");
       return;
     }
-  
+
+    succMsg("Listening...");
+    setListenBtn(true);
+
     const recognition = new SpeechRecognition();
-    recognition.lang = "hi-IN";
-    let accumulatedText = text1;
-  
-    recognition.start();
-  
-    // When speech is recognized
-    recognition.onresult = function (event) {
-      const transcript = event.results[event.resultIndex][0].transcript;
-      accumulatedText += transcript;
-      setText1((prev) => prev + transcript);
-      translateText({
-        text1: accumulatedText,
-        language1,
-        language2,
-        setText2,
-      });
+    recognition.interimResults = true;
+    console.log(langCode);
+    recognition.lang = langCode;
+
+    let accumulatedText = text1 || "";
+    let debounceTimer;
+
+    recognition.onstart = () => {
+      console.log("Speech recognition started.");
     };
-  
-    // Handle errors
-    recognition.onerror = function (event) {
+
+    recognition.onresult = (event) => {
+      const transcript = Array.from(event.results)
+        .map((result) => result[0].transcript)
+        .join("");
+
+      accumulatedText = transcript;
+      setText1(transcript);
+
+      // Debounce translation to avoid too many API calls
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(() => {
+        translateText({
+          text1: accumulatedText,
+          language1,
+          language2,
+          setText2,
+        });
+      }, 800); // 800ms debounce
+    };
+
+    recognition.onerror = (event) => {
+      console.warn("Speech recognition error:", event.error);
       warnMsg(event.error);
-    };
-  
-    // Ensure it stops after result and doesn't continue
-    recognition.onend = function () {
       setListenBtn(false);
-      console.log("Speech recognition service has stopped.");
     };
-  
-    // Make sure recognition stops when user manually stops or after a result
-    recognition.onspeechend = function () {
-      recognition.stop(); // Explicitly stop when speech ends
+
+    recognition.onspeechend = () => {
+      recognition.stop(); // Auto-stop when user stops talking
       console.log("Speech ended and recognition stopped.");
     };
-  
-    // Explicitly start the recognition again if necessary (in case it's not starting again after onend)
-    recognition.onstart = function () {
-      console.log("Speech recognition has started.");
+
+    recognition.onend = () => {
+      setListenBtn(false);
+      console.log("Speech recognition service stopped.");
     };
+
+    recognition.start();
   }
-  
 
   // clear all text
   const clearText = ({ setText1, setText2 }) => {

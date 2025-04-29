@@ -115,6 +115,7 @@
     &:hover {
       background-color: #4c1ea7;
       transition: all 0.2s linear;
+      box-shadow: rgba(100, 100, 111, 0.25) 0px 10px 40px 0px;
     }
   }
 }
@@ -134,28 +135,28 @@
 }
 
 @media (max-width: 750px) {
-  .text-section{
+  .text-section {
     max-width: none;
     max-width: 100%;
     margin: 50px 10px;
     padding: 10px;
   }
-  .header{
-    & h1{
+  .header {
+    & h1 {
       font-size: 25px;
     }
   }
 }
 
 @media (max-width: 550px) {
-  .header{
-    & h1{
+  .header {
+    & h1 {
       font-size: 20px;
     }
   }
 }
 @media (max-width: 600px) {
-  .textarea-box{
+  .textarea-box {
     flex-wrap: wrap;
   }
 }

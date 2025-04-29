@@ -24,6 +24,7 @@ const TextArea = () => {
   } = useContext(store);
   const [language1, setLanguage1] = useState("hi");
   const [language2, setLanguage2] = useState("en");
+  const [langCode, setLangCode] = useState("hi-IN");
 
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
@@ -40,6 +41,7 @@ const TextArea = () => {
               language1,
               language2,
               setText2,
+              langCode
             })
           }
         >
@@ -51,7 +53,10 @@ const TextArea = () => {
           <select
             id="lang-1"
             value={language1}
-            onChange={(e) => setLanguage1(e.target.value)}
+            onChange={(e) => {
+              setLanguage1(e.target.value);
+              setLangCode(e.target.value === "hi" ? "hi-IN" : "en-US");
+            }}
           >
             <option value="hi">Hindi</option>
             <option value="en">English</option>
@@ -68,7 +73,9 @@ const TextArea = () => {
           <select
             id="lang-1"
             value={language2}
-            onChange={(e) => setLanguage2(e.target.value)}
+            onChange={(e) => {
+              setLanguage2(e.target.value);
+            }}
           >
             <option value="en">English</option>
             <option value="hi">Hindi</option>

@@ -16,7 +16,6 @@ const Navbar = () => {
     localStorage.setItem("mode", mode ? false : true);
   };
 
-console.log(mode)
   const openSidear = () => {
     setSidebar(true);
   };
@@ -28,7 +27,7 @@ console.log(mode)
   return (
     <div className={`navbar ${mode ? "navbar-light" : ""}`}>
       <div className={`logo-box ${mode ? "logo-box-light" : ""}`}>
-        <h4>Text Translator</h4>
+        <h4>Translator</h4>
         <div className="options" style={{ right: sidebar ? "0px" : "-100%" }}>
           <NavLink
             className={({ isActive }) => (isActive ? "active" : "")}
@@ -37,7 +36,6 @@ console.log(mode)
             Home
           </NavLink>
           <NavLink to="/about">About</NavLink>
-          <NavLink to="/faq">FAQ</NavLink>
           <IoCloseOutline onClick={closeSidebar} className="close-btn" />
         </div>
       </div>
