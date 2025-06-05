@@ -8,6 +8,7 @@ import { MdGTranslate } from "react-icons/md";
 import { store } from "../context/LanguageContext";
 import { IoVolumeMuteOutline } from "react-icons/io5";
 import { PiRecord } from "react-icons/pi";
+import { FaExchangeAlt } from "react-icons/fa";
 
 const TextArea = () => {
   const {
@@ -29,6 +30,12 @@ const TextArea = () => {
   const [text1, setText1] = useState("");
   const [text2, setText2] = useState("");
 
+  const exchangeLanguage = (e) => {
+    setLanguage1(language1 === "hi" ? "en" : "hi");
+    setLanguage2(language2 === "hi" ? "en" : "hi");
+    setLangCode(language1 === "hi" ? "en" : "hi" === "hi" ? "hi-IN" : "en-US");
+  };
+
   return (
     <section className={`text-section ${mode ? "text-section-dark" : ""}`}>
       <div className="header">
@@ -41,7 +48,7 @@ const TextArea = () => {
               language1,
               language2,
               setText2,
-              langCode
+              langCode,
             })
           }
         >
@@ -69,6 +76,10 @@ const TextArea = () => {
             onChange={(e) => setText1(e.target.value)}
           ></textarea>
         </div>
+        <p onClick={exchangeLanguage} className="exchange-icon">
+          {" "}
+          <FaExchangeAlt />
+        </p>
         <div className="textbox-1">
           <select
             id="lang-1"
