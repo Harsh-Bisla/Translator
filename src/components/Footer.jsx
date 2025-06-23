@@ -7,7 +7,7 @@ import { CiTwitter } from "react-icons/ci";
 const Footer = () => {
   return (
     <section className="footer">
-      <p>© 2025 Nikhil Chaudhary, Inc</p>
+      <p>© 2025 Harsh Bisla, Inc</p>
       <div className="icons">
         <FaInstagram />
         <CiLinkedin />
